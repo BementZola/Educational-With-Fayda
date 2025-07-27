@@ -1,7 +1,7 @@
 # Educational-With-Fayda
 ## Contributors
   **Bemnet Abebaw**
-## Project Summary
+## Project Synopsis:
 ### Problem Statement
 In Ethiopia, educational documents like report cards and certificates are still mainly paper-based and often lack proper verification. This makes it easy for fake certificates to circulate, misleads employers and institutions, and risks students losing vital records. Schools also face challenges in securely tracking and sharing results with trusted parties.
 
