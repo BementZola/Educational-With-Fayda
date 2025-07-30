@@ -52,3 +52,8 @@ Frontend:
 
 Backend/Data Storage:
  - Local Storage: Currently used for basic grievance data persistence in sgrievance.html.
+
+Passwords:
+- For Admin Panel: 1234567809
+- For Student Panel: 0987654321
+- For Teacher Panel: 123456789 
