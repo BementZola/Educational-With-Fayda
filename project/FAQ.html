@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        nav {
+            background-color: #2f6f7b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+            padding: 10px 15px;
+        }
+        
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+            display: block;
+        }
+        
+        .nav-links li a:hover {
+            color: #f0f0f0;
+            border-bottom: 2px solid white;
+        }
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #2f6f7b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 0 0 5px 5px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #3a8a98;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #3a8a98;
+            border-bottom: 1px solid #3a8a98;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+      
+        main {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-section {
+            margin-bottom: 30px;
+        }
+
+        .faq-section h2 {
+            font-size: 2em;
+            color: #2f6f7b;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .faq-section h2::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background-color: #2f6f7b;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+        }
+
+        .faq-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            background-color: #ffffff;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #333;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #e6f2f4;
+            color: #2f6f7b;
+        }
+
+        .faq-question.active {
+            background-color: #2f6f7b;
+            color: white;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .faq-question i {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            background-color: #f3fbfc;
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .faq-answer p {
+            padding: 15px 0;
+        }
+
+        .faq-answer.open {
+            max-height: 150px; 
+            padding: 15px 25px;
+        }
+
+       
+        .site-footer {
+            background-color: #2e6f79;
+            color: #fff; 
+            padding: 40px 20px;
+            font-family: Arial, sans-serif; 
+            margin-top: auto; 
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-around; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .footer-section {
+            flex: 1; 
+            min-width: 250px; 
+            margin: 15px; 
+        }
+
+        .footer-section h3 {
+            color: #a8e6cf;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #a8e6cf; 
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex; 
+            flex-wrap: wrap;
+            gap: 15px; 
+        }
+
+        .footer-section ul li {
+            display: inline-block; 
+        }
+
+        .footer-section i {
+            margin-right: 8px; 
+            color: #a8e6cf; 
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2); 
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column; 
+                align-items: center; 
+            }
+
+            .footer-section {
+                min-width: unset; 
+                width: 90%; 
+                text-align: center;
+            }
+
+            .footer-section ul {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <center>
+            <nav>
+                <div class="logo">
+                    <img src="logo.png" alt="Logo">
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Announcement.html">Announcement</a></li>
+                    <li class="dropdown">
+                        <a href="#">Login</a>
+                        <div class="dropdown-content">
+                            <a href="AdminLogin.html">Admin Login</a>
+                            <a href="TeacherLogin.html">Teacher Login</a>
+                            <a href="StudentLogin.html">Student Login</a>
+                        </div>
+                    </li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="GetinTouch.html">Get in Touch</a></li>
+                </ul>
+            </nav>
+        </center>
+    </header>
+    <main>
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is my Fayda FIN Number?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your Fayda FIN Number is your unique identification number provided by the institution for logging into this portal.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>I forgot my Fayda FIN Number. What should I do?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Please contact IT support or the administrative office directly to recover your Fayda FIN Number.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>My Fayda FIN Number is not working. What's wrong?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Check if you entered it correctly. Your account might be inactive, or there could be a temporary system issue. If it persists, contact IT support.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I log in as a student?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Enter your assigned Fayda FIN Number in the login field and click "Login."</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>I'm a new teacher and don't have my Fayda FIN Number. How do I get it?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>New teachers receive their Fayda FIN Number during onboarding or from the administrative department. Contact your department or HR if you haven't received it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section contact-info">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Grand Palace Parking,<br>Menelik II Avenue 2nd floor, office number -23<br>Addis Ababa Ethiopia</p>
+                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@id.gov.et">info@id.gov.et</a></p>
+                <p><i class="fas fa-phone-alt"></i> Call Us: +251 113 720 006</p>
+            </div>
+
+            <div class="footer-section ussd-info">
+                <h3>USSD</h3>
+                <p>*9779#</p>
+            </div>
+
+            <div class="footer-section links">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Socials</a></li>
+                    <li><a href="#">Website Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Copyright Policy</a></li>
+                    <li><a href="#">Career</a></li>
+                    <li><a href="#">Card Print</a></li>
+                    <li><a href="#">Logo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>2025 National ID. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+
+                    
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                            otherQuestion.classList.remove('active');
+                            otherQuestion.nextElementSibling.classList.remove('open');
+                            otherQuestion.querySelector('i').style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    question.classList.toggle('active');
+                    answer.classList.toggle('open');
+                    if (answer.classList.contains('open')) {
+                        icon.style.transform = 'rotate(180deg)';
+                        answer.style.maxHeight = answer.scrollHeight + 'px'; 
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                        answer.style.maxHeight = '0';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

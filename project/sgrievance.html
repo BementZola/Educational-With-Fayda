@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grievance Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f7f6;
+        }
+nav {
+    background-color: #2f6f7b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+@keyframes navSlideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+nav {
+    animation: navSlideIn 0.5s ease-out forwards;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.logo img:hover {
+    transform: rotate(-5deg);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 10px 15px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+    display: block;
+    position: relative;
+}
+
+.nav-links li a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-links li a:hover:after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-links li a.active {
+    font-weight: bold;
+}
+
+.nav-links li a.active:after {
+    width: 100%;
+}
+.site-footer {
+    background-color: #2e6f79;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    margin-top: auto;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.site-footer:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #a8e6cf, #2e6f79, #a8e6cf);
+    animation: gradientFlow 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: footerFadeIn 0.6s 0.2s ease-out forwards;
+}
+
+@keyframes footerFadeIn {
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 15px;
+    transition: transform 0.3s ease;
+}
+
+.footer-section:hover {
+    transform: translateY(-5px);
+}
+
+.footer-section h3 {
+    color: #a8e6cf;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-section h3:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #a8e6cf;
+    transition: width 0.3s ease;
+}
+
+.footer-section:hover h3:after {
+    width: 50%;
+}
+
+.footer-section p, .footer-section li {
+    font-size: 0.9em;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-section a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #a8e6cf;
+    transition: width 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #a8e6cf;
+}
+
+.footer-section a:hover:after {
+    width: 100%;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-section ul li {
+    display: inline-block;
+}
+
+.footer-section i {
+    margin-right: 8px;
+    color: #a8e6cf;
+    transition: transform 0.3s ease;
+}
+
+.footer-section a:hover i {
+    transform: scale(1.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.7);
+    animation: fadeIn 1s 0.4s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.ussd-info p {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .grievance-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            box-sizing: border-box;
+        }
+
+        .grievance-container h2 {
+            text-align: center;
+            color: #2f6f7b;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2f6f7b;
+            outline: none;
+            box-shadow: 0 0 5px rgba(47, 111, 123, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #2f6f7b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #255a64;
+            transform: translateY(-2px);
+        }
+
+       
+        @media (max-width: 768px) {
+
+            .grievance-container {
+                padding: 30px;
+            }
+
+            .grievance-container h2 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grievance-container {
+                padding: 20px;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea,
+            .submit-button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <center>
+            <nav>
+                <div class="logo">
+                    <img src="logo.png" alt="Logo">
+                </div>
+
+               <ul class="nav-links">
+                     <li><a href="sannouncement.html">Student Announcement</a></li>
+                     <li><a href="viewgrade.html">View Grade</a></li>
+                     <li><a href="sgrievance.html">Grievance Form</a></li>
+                     <li><a href="sGetinTouch.html">Get in Touch</a></li>
+                     <li><a href="index.html">Logout</a></li>
+                </ul>
+            </nav>
+        </center>
+    </header>
+
+   <main>
+        <div class="grievance-container">
+            <h2>Grievance Submission Form</h2>
+            <form id="grievanceForm">
+                <div class="form-group">
+                    <label for="studentName">Student Name:</label>
+                    <input type="text" id="studentName" name="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentID">Student ID:</label>
+                    <input type="text" id="studentID" name="studentID" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Detailed Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Submit Grievance</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section contact-info">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Grand Palace Parking,<br>Menelik II Avenue 2nd floor, office number -23<br>Addis Ababa Ethiopia</p>
+                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@id.gov.et">info@id.gov.et</a></p>
+                <p><i class="fas fa-phone-alt"></i> Call Us: +251 113 720 006</p>
+            </div>
+
+            <div class="footer-section ussd-info">
+                <h3>USSD</h3>
+                <p>*9779#</p>
+            </div>
+
+            <div class="footer-section links">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Socials</a></li>
+                    <li><a href="#">Website Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Copyright Policy</a></li>
+                    <li><a href="#">Career</a></li>
+                    <li><a href="#">Card Print</a></li>
+                    <li><a href="#">Logo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>2025 National ID. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('grievanceForm');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                
+                const existingGrievances = JSON.parse(localStorage.getItem('grievances')) || [];
+                
+            
+                const newGrievance = {
+                    id: Date.now().toString(),
+                    date: new Date().toLocaleString(),
+                    studentName: document.getElementById('studentName').value,
+                    studentID: document.getElementById('studentID').value,
+                    subject: document.getElementById('subject').value,
+                    description: document.getElementById('description').value,
+                    status: "Pending",
+                    adminResponse: ""
+                };
+
+         
+                existingGrievances.push(newGrievance);
+                
+                
+                localStorage.setItem('grievances', JSON.stringify(existingGrievances));
+
+               
+                alert('Your grievance has been submitted successfully!');
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        nav {
+            background-color: #2f6f7b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover img {
+            filter: brightness(1.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+            padding: 10px 15px;
+        }
+        
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+            display: block;
+            position: relative;
+        }
+        
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #47f4c7;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links li a:hover {
+            color: #f0f0f0;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #2f6f7b;
+            min-width: 160px;
+            box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 0 0 5px 5px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #3a8a98;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #3a8a98;
+            padding-left: 20px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        main {
+            padding: 60px 20px;
+            flex: 1;
+            background: linear-gradient(135deg, #f5f9fa 0%, #e6f2f5 100%);
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        b {
+            color: #47f4c7;
+            font-size: 3.5rem;
+            font-weight: 700;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 0 2px 10px rgba(71, 244, 199, 0.3);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            color: #555;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 300px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #2f6f7b;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #2f6f7b;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            font-size: 1rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        .color-changing-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 40px auto;
+            max-width: 800px;
+            text-align: center;
+            animation: colorChange 8s infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes colorChange {
+            0% { color: #47f4c7; }
+            25% { color: #4fc3f7; }
+            50% { color: #64b5f6; }
+            75% { color: #81d4fa; }
+            100% { color: #47f4c7; }
+        }
+        
+        .site-footer {
+            background-color: #2e6f79;
+            color: #fff;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin: 15px;
+        }
+        
+        .footer-section h3 {
+            color: #a8e6cf;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .footer-section p,
+        .footer-section li {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #a8e6cf;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .footer-section ul li {
+            display: inline-block;
+        }
+        
+        .footer-section i {
+            margin-right: 8px;
+            color: #a8e6cf;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .footer-section {
+                min-width: unset;
+                width: 90%;
+                text-align: center;
+            }
+        
+            .footer-section ul {
+                justify-content: center;
+            }
+            
+            h1, b {
+                font-size: 2.5rem;
+            }
+            
+            .color-changing-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Announcement.html">Announcement</a></li>
+                <li class="dropdown">
+                    <a href="#">Login</a>
+                    <div class="dropdown-content">
+                        <a href="AdminLogin.html">Admin Login</a>
+                        <a href="TeacherLogin.html">Teacher Login</a>
+                        <a href="StudentLogin.html">Student Login</a>
+                    </div>
+                </li>
+                <li><a href="FAQ.html">FAQ</a></li>
+                <li><a href="GetinTouch.html">Get in Touch</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="hero">
+            <h1><b>Fayda</b> for Ethiopia</h1>
+            <p>
+                A robust digital identification at the national-level, offering real-time biometric authentication and eKYC for all use-cases.
+                <br>
+                Established under Proc. 1284/2023 as a foundational legal ID for Ethiopia.
+            </p>
+            
+            <div class="color-changing-text">
+                Transforming Ethiopia's digital landscape with secure, accessible, and innovative identification solutions for every citizen.
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Biometric Security</h3>
+                    <p>State-of-the-art biometric technology ensuring secure and reliable identification for all citizens.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Access</h3>
+                    <p>Access your digital ID anytime, anywhere through our mobile-friendly platform and USSD services.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Data Protection</h3>
+                    <p>Your personal information is protected with the highest standards of data security and privacy.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section contact-info">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Grand Palace Parking,<br>Menelik II Avenue 2nd floor, office number -23<br>Addis Ababa Ethiopia</p>
+                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@id.gov.et">info@id.gov.et</a></p>
+                <p><i class="fas fa-phone-alt"></i> Call Us: +251 113 720 006</p>
+            </div>
+    
+            <div class="footer-section ussd-info">
+                <h3>USSD</h3>
+                <p>*9779#</p>
+            </div>
+    
+            <div class="footer-section links">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Socials</a></li>
+                    <li><a href="#">Website Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Copyright Policy</a></li>
+                    <li><a href="#">Career</a></li>
+                    <li><a href="#">Card Print</a></li>
+                    <li><a href="#">Logo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>2025 National ID. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

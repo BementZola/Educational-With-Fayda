@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Announcements</title>
+</head>
+ <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+    background-color: #2f6f7b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes navSlideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+nav {
+    animation: navSlideIn 0.6s ease-out forwards;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.logo img:hover {
+    transform: rotate(-2deg) scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 5px;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 10px 15px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+    display: block;
+    position: relative;
+    font-weight: 500;
+}
+
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    transition: all 0.3s ease;
+    visibility: hidden;
+}
+
+.nav-links li a:hover::before {
+    width: 80%;
+    visibility: visible;
+}
+
+.nav-links li a:hover {
+    transform: translateY(-2px);
+}
+
+.nav-links li a.active {
+    font-weight: 600;
+}
+
+.nav-links li a.active::before {
+    width: 80%;
+    visibility: visible;
+}
+
+.action-btn {
+    background-color: #2f6f7b;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.action-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.action-btn i {
+    transition: transform 0.3s ease;
+}
+
+.action-btn:hover i {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        padding: 8px 0;
+        text-align: center;
+    }
+    
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .nav-links li a::before {
+        width: 0;
+        left: 0;
+        transform: none;
+    }
+    
+    .nav-links li a:hover::before,
+    .nav-links li a.active::before {
+        width: 30%;
+        left: 35%;
+    }
+}
+main {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    .container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        padding: 30px;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: slideUp 0.6s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    h1 {
+        color: #2f6f7b;
+        margin-bottom: 25px;
+        font-size: 2.2em;
+        position: relative;
+        display: inline-block;
+    }
+
+    h1:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        bottom: -8px;
+        left: 0;
+        background: linear-gradient(90deg, #2f6f7b, #a8e6cf, #2f6f7b);
+        border-radius: 3px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .container:hover h1:after {
+        transform: scaleX(1);
+    }
+
+    #announcementsList {
+        margin-top: 30px;
+    }
+
+    .announcement {
+        background: #f9f9f9;
+        border-left: 4px solid #2f6f7b;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 0 8px 8px 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: perspective(500px) rotateY(15deg);
+        opacity: 0;
+        animation: cardEntry 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .announcement:nth-child(1) { animation-delay: 0.4s; }
+    .announcement:nth-child(2) { animation-delay: 0.5s; }
+    .announcement:nth-child(3) { animation-delay: 0.6s; }
+    .announcement:nth-child(4) { animation-delay: 0.7s; }
+
+    .announcement:hover {
+        transform: perspective(500px) rotateY(0) translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        border-left-color: #a8e6cf;
+    }
+
+    .announcement p {
+        margin-bottom: 10px;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .timestamp {
+        font-size: 0.85em;
+        color: #666;
+        font-style: italic;
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes cardEntry {
+        from { transform: perspective(500px) rotateY(15deg); opacity: 0; }
+        to { transform: perspective(500px) rotateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 1.8em;
+        }
+        
+        .announcement {
+            transform: perspective(500px) rotateY(0) !important;
+        }
+    }
+.site-footer {
+    background-color: #2e6f79;
+    color: #fff;
+    padding: 50px 20px 30px;
+    font-family: Arial, sans-serif;
+    margin-top: auto;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #a8e6cf, #2e6f79, #a8e6cf);
+    animation: gradientFlow 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: footerFadeIn 0.8s 0.2s ease-out forwards;
+}
+
+@keyframes footerFadeIn {
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 20px 15px;
+    transition: transform 0.4s ease;
+}
+
+.footer-section:hover {
+    transform: translateY(-8px);
+}
+
+.footer-section h3 {
+    color: #a8e6cf;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #a8e6cf;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.footer-section:hover h3::after {
+    transform: scaleX(1);
+}
+
+.footer-section p, 
+.footer-section li {
+    font-size: 0.95em;
+    line-height: 1.7;
+    transition: all 0.3s ease;
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-section a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #a8e6cf;
+    transition: width 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #a8e6cf;
+}
+
+.footer-section a:hover::after {
+    width: 100%;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer-section ul li {
+    display: inline-block;
+}
+
+.footer-section i {
+    margin-right: 10px;
+    color: #a8e6cf;
+    transition: all 0.3s ease;
+}
+
+.footer-section a:hover i {
+    transform: rotate(10deg) scale(1.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+    animation: fadeIn 1s 0.4s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.ussd-info p {
+    font-weight: bold;
+    font-size: 1.3em;
+    display: inline-block;
+    animation: pulse 2s infinite ease-in-out;
+    text-shadow: 0 0 8px rgba(168, 230, 207, 0.4);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        min-width: unset;
+        width: 90%;
+        margin: 15px 0;
+    }
+
+    .footer-section h3::after {
+        left: 25%;
+        width: 50%;
+    }
+
+    .footer-section ul {
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <center>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="tannouncement.html">Announcement</a></li>
+            <li><a href="gradesubmission.html">Grade Submission</a></li>
+            <li><a href="TGetinTouch.html">Get in Touch</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    </center>
+    <main>
+        <div class="container">
+        <h1>Teacher Announcements</h1>
+        <div id="announcementsList"></div>
+    </div>
+    </main>
+    </header>
+    <footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-section contact-info">
+      <h3>Contact Us</h3>
+      <p><i class="fas fa-map-marker-alt"></i> Grand Palace Parking,<br>Menelik II Avenue 2nd floor, office number -23<br>Addis Ababa Ethiopia</p>
+      <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@id.gov.et">info@id.gov.et</a></p>
+      <p><i class="fas fa-phone-alt"></i> Call Us: +251 113 720 006</p>
+    </div>
+
+    <div class="footer-section ussd-info">
+      <h3>USSD</h3>
+      <p>*9779#</p>
+    </div>
+
+    <div class="footer-section links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Socials</a></li>
+        <li><a href="#">Website Policy</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+        <li><a href="#">Copyright Policy</a></li>
+        <li><a href="#">Career</a></li>
+        <li><a href="#">Card Print</a></li>
+        <li><a href="#">Logo</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>2025 National ID. All Rights Reserved.</p>
+  </div>
+</footer>
+<script>
+        function loadAnnouncements() {
+            const announcements = JSON.parse(localStorage.getItem('tannouncement') || '[]');
+            const container = document.getElementById('announcementsList');
+
+            if (announcements.length === 0) {
+                container.innerHTML = "<p>No announcements yet.</p>";
+                return;
+            }
+
+            container.innerHTML = announcements.map(ann => `
+                <div class="announcement">
+                    <p>${ann.text}</p>
+                    <p class="timestamp">Posted on: ${ann.timestamp}</p>
+                </div>
+            `).join('');
+        }
+        window.onload = loadAnnouncements;
+    </script>
+</body>
+</html>

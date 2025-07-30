@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Announcer Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+        nav {
+    background-color: #2f6f7b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+@keyframes navSlideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+nav {
+    animation: navSlideIn 0.6s ease-out forwards;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.logo img:hover {
+    transform: rotate(-2deg) scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 5px;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 8px 12px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    padding: 8px 0;
+    display: block;
+    position: relative;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    transition: all 0.3s ease;
+    visibility: hidden;
+}
+
+.nav-links li a:hover::before {
+    width: 80%;
+    visibility: visible;
+}
+
+.nav-links li a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+.nav-links li a.active {
+    font-weight: 600;
+}
+
+.nav-links li a.active::before {
+    width: 80%;
+    visibility: visible;
+}
+.action-btn {
+    background-color: #2f6f7b;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-left: 10px;
+}
+
+.action-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.action-btn i {
+    transition: transform 0.3s ease;
+}
+
+.action-btn:hover i {
+    transform: translateX(3px);
+}
+@media (max-width: 1024px) {
+    .nav-links li a {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        padding: 8px 0;
+        text-align: center;
+    }
+    
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+        margin: 10px 0 0 0;
+    }
+    
+    .nav-links li a::before {
+        width: 0;
+        left: 0;
+        transform: none;
+    }
+    
+    .nav-links li a:hover::before,
+    .nav-links li a.active::before {
+        width: 30%;
+        left: 35%;
+    }
+}
+nav.active {
+    box-shadow: 0 4px 20px rgba(47, 111, 123, 0.6);
+}
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.container h1 {
+    color: #2f6f7b;
+    margin-bottom: 20px;
+}
+
+.container label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+.container select, 
+.container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.container textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2f6f7b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.container button:hover {
+    background-color: #1d4e57;
+}
+    </style>
+</head>
+<body>
+   <header class="w-full">
+        <nav>
+            <div class="logo">
+                
+                <img src="logo.png" alt="Logo">
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="announcer.html">Announce</a></li>
+                <li><a href="studentaddmision.html">Student Admission</a></li>
+                <li><a href="teacherrecruitiment.html">Teacher Recruitment Panel</a></li>
+                <li><a href="generalscan.html">General Scan</a></li>
+                <li><a href="attachmenteaes.html">Attachment to EAES</a></li>
+                <li><a href="grievanceview.html">Grievance View</a></li>
+                <li><a href="recevieandpost.html">Receive and Post Attachment</a></li>
+            </ul>
+
+            <button class="action-btn bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center justify-center">
+                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+            </button>
+        </nav>
+    </header>
+    <main>
+          <div class="container">
+        <h1>Announcement Creator</h1>
+        <label for="announcementType">Select Announcement Type:</label>
+        <select id="announcementType">
+            <option value="tannouncement">Teacher Announcement</option>
+            <option value="sannouncement">Student Announcement</option>
+        </select>
+        <label for="announcementText">Announcement:</label>
+        <textarea id="announcementText" rows="5" placeholder="Enter your announcement here..."></textarea>
+        <button onclick="submitAnnouncement()">Submit Announcement</button>
+    </div>
+
+    <script>
+
+     document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.querySelector('nav');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 10) {
+            nav.classList.add('active');
+        } else {
+            nav.classList.remove('active');
+        }
+    });
+});
+
+
+        function submitAnnouncement() {
+            const type = document.getElementById('announcementType').value;
+            const text = document.getElementById('announcementText').value.trim();
+
+            if (!text) {
+                alert("Please enter an announcement!");
+                return;
+            }
+            const announcements = JSON.parse(localStorage.getItem(type) || '[]');
+            announcements.push({
+                text: text,
+                timestamp: new Date().toLocaleString()
+            });
+            localStorage.setItem(type, JSON.stringify(announcements));
+            document.getElementById('announcementText').value = '';
+            alert("Announcement submitted successfully!");
+        }
+    </script>
+</body>
+</html>
